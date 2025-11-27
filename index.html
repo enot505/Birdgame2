@@ -30,7 +30,7 @@
         align-items: center;
     }
 
-    /* Каждая кнопка (ячейка) */
+    /* Кнопки навигации */
     .nav-btn {
         width: 1cm;
         height: 1cm;
@@ -40,26 +40,25 @@
         cursor: pointer;
     }
 
-    /* Иконка домика */
+    /* Иконка (светло-серая) */
     .nav-btn img {
         width: 1cm;
         height: 1cm;
         object-fit: contain;
-        filter: invert(1); /* белая иконка для тёмного фона */
+        filter: brightness(4);  /* делает её светло-светло-серой */
     }
 </style>
 </head>
 <body>
 
-<!-- Нижняя панель: 5 одинаковых кнопок -->
 <div class="bottom-bar">
 
-    <!-- Кнопка Дом -->
+    <!-- Домик -->
     <div class="nav-btn" onclick="openHome()">
-        <img src="house.png" alt="home">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAC6nd/tAAAABmJLR0QA/wD/AP+gvaeTAAABGklEQVR4nO3XMQ0AAAgDoJvc/FEFhAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAODlGEkAAQFjGJwAAAAASUVORK5CYII=" />
     </div>
 
-    <!-- Пустые кнопки (позже добавим 4 кнопки) -->
+    <!-- 4 пустых кнопки под будущие функции -->
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
@@ -72,7 +71,6 @@
     tg.expand();
 
     function openHome() {
-        // Открытие главной страницы (просто reload)
         location.reload();
     }
 </script>
