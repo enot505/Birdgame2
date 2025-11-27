@@ -40,21 +40,29 @@
         cursor: pointer;
         position: relative;
 
-        /* 🔥 Убираем синее выделение */
+        /* убираем синее выделение */
         outline: none;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
         user-select: none;
-    }
-
-    .nav-btn:focus {
-        outline: none;
     }
 
     .nav-btn img {
         width: 0.7cm;
         height: 0.7cm;
         object-fit: contain;
-        pointer-events: none; /* не выделять картинку */
+        pointer-events: none;
+    }
+
+    /* 🔥 Подчёркивание под активной кнопкой */
+    .nav-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: -0.25cm; /* немного ниже иконки */
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: #d9d9d9; /* светло-светло серый */
+        border-radius: 2px;
     }
 </style>
 </head>
@@ -62,8 +70,8 @@
 
 <div class="bottom-bar">
 
-    <!-- Домик -->
-    <div class="nav-btn" onclick="openHome()">
+    <!-- Домик — активная кнопка -->
+    <div class="nav-btn active" onclick="openHome()">
         <img src="data:image/svg+xml;utf8,
         <svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='none'>
             <path d='M10 45 L50 10 L90 45' stroke='%23d9d9d9' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/>
@@ -72,7 +80,7 @@
         </svg>" />
     </div>
 
-    <!-- 4 пустых кнопки под будущие функции -->
+    <!-- 4 пустых кнопки -->
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
