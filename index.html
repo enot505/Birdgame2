@@ -10,31 +10,71 @@
     body {
         margin: 0;
         padding: 0;
-        background: #181818; /* новый цвет фона */
+        background: #181818;
         width: 100%;
         height: 100vh;
         overflow: hidden;
         position: relative;
     }
 
-    /* Нижняя чёрная полоска */
+    /* Нижняя чёрная полоса */
     .bottom-bar {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 1.5cm; /* увеличенная высота */
+        height: 1.5cm;
         background: #000;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    /* Каждая кнопка (ячейка) */
+    .nav-btn {
+        width: 1cm;
+        height: 1cm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    /* Иконка домика */
+    .nav-btn img {
+        width: 1cm;
+        height: 1cm;
+        object-fit: contain;
+        filter: invert(1); /* белая иконка для тёмного фона */
     }
 </style>
 </head>
 <body>
 
-<div class="bottom-bar"></div>
+<!-- Нижняя панель: 5 одинаковых кнопок -->
+<div class="bottom-bar">
+
+    <!-- Кнопка Дом -->
+    <div class="nav-btn" onclick="openHome()">
+        <img src="house.png" alt="home">
+    </div>
+
+    <!-- Пустые кнопки (позже добавим 4 кнопки) -->
+    <div class="nav-btn"></div>
+    <div class="nav-btn"></div>
+    <div class="nav-btn"></div>
+    <div class="nav-btn"></div>
+
+</div>
 
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
+
+    function openHome() {
+        // Открытие главной страницы (просто reload)
+        location.reload();
+    }
 </script>
 
 </body>
