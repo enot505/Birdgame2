@@ -21,30 +21,21 @@
     /* 🔵 Верхняя правая кнопка */
     .top-right-btn {
         position: absolute;
-        top: 0.7cm;          /* опустил на полсантиметра */
+        top: 0.7cm;
         right: 0.4cm;
-        width: 2cm;          /* новая ширина */
-        height: 0.7cm;       /* новая высота */
+        width: 2cm;
+        height: 0.7cm;
         background: #474749;
         border-radius: 14px;
         display: flex;
-        justify-content: flex-end; /* иконка справа */
-        align-items: center;       /* по центру по высоте */
-        padding-right: 0.18cm;     /* отступ от правого края */
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 0.18cm;
         color: #d9d9d9;
         font-size: 0.27cm;
         user-select: none;
         cursor: pointer;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-
-    /* картинка внутри верхней кнопки */
-    .top-right-btn img {
-        width: 0.45cm;       /* размер иконки внутри кнопки */
-        height: 0.45cm;
-        object-fit: contain;
-        display: block;
-        pointer-events: none;
     }
 
     .bottom-bar {
@@ -53,7 +44,7 @@
         left: 0;
         width: 100%;
         height: 1.5cm;
-        background: #474749; /* ← НОВЫЙ ЦВЕТ */
+        background: #474749;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
@@ -93,10 +84,54 @@
 </head>
 <body>
 
-<!-- 🔵 Верхняя кнопка: иконка берётся из внешнего файла top-icon.svg -->
+<!-- 🔵 Верхняя кнопка с монетой -->
 <div class="top-right-btn" id="top-btn">
-    <!-- Положи здесь свой SVG рядом с HTML и назови top-icon.svg -->
-    <img src="top-icon.svg" alt="icon" />
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="0.45cm" height="0.45cm" viewBox="0 0 64 64"
+         style="display:block; margin-left:auto;">
+
+      <defs>
+        <radialGradient id="gold" cx="30%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#fff3a0"/>
+          <stop offset="40%" stop-color="#f5c454"/>
+          <stop offset="75%" stop-color="#d69c1f"/>
+          <stop offset="100%" stop-color="#a86f00"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Монета -->
+      <circle cx="32" cy="32" r="30"
+              fill="url(#gold)"
+              stroke="#a86f00"
+              stroke-width="2"/>
+
+      <!-- Внутренний рельеф -->
+      <circle cx="32" cy="32" r="24"
+              fill="none"
+              stroke="#e0b44d"
+              stroke-width="1.4"/>
+
+      <!-- Колибри -->
+      <path
+        d="M18 34
+           C22 30, 26 28, 31 28
+           L48 18
+           M31 28
+           C33 22, 36 18, 41 18
+           C38 23, 38 28, 34 32
+           C32 34, 28 36, 24 36
+           C21 36, 19 35, 18 34
+           M24 36
+           C22 39, 22 42, 25 44"
+        fill="none"
+        stroke="#7a4a00"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
 </div>
 
 <div class="bottom-bar">
