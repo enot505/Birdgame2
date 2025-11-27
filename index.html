@@ -126,8 +126,21 @@
         </svg>' />
     </div>
 
-    <!-- ПУСТЫЕ -->
-    <div class="nav-btn"></div>
+    <!-- ПРОФИЛЬ -->
+    <div class="nav-btn" id="btn-profile" onclick="openProfile()">
+        <img src='data:image/svg+xml;utf8,
+        <svg xmlns="http://www.w3.org/2000/svg" width="0.7cm" height="0.7cm" viewBox="0 0 64 64" fill="none">
+            <style>.s { stroke:%23d9d9d9; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; fill:none; }</style>
+
+            <circle class="s" cx="32" cy="22" r="10"/>
+            <path class="s"
+                  d="M16 50
+                     C16 38, 48 38, 48 50
+                     Z"/>
+        </svg>' />
+    </div>
+
+    <!-- ПУСТАЯ -->
     <div class="nav-btn"></div>
 
 </div>
@@ -145,6 +158,7 @@
     function openCalendar() { setActive("btn-calendar"); console.log("Ежедневные квесты"); }
     function openEvent() { setActive("btn-event"); console.log("Ивент"); }
     function openInventory() { setActive("btn-inventory"); console.log("Инвентарь"); }
+    function openProfile() { setActive("btn-profile"); console.log("Профиль"); }
 </script>
 
 </body>
