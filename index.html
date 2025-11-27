@@ -15,6 +15,27 @@
         height: 100vh;
         overflow: hidden;
         position: relative;
+        font-family: sans-serif;
+    }
+
+    /* 🔵 Новая верхняя кнопка */
+    .top-right-btn {
+        position: absolute;
+        top: 0.4cm;
+        right: 0.4cm;
+        width: 1.5cm;
+        height: 0.3cm;
+        background: #474749;
+        border-radius: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #d9d9d9;
+        font-size: 0.25cm;
+        user-select: none;
+        cursor: pointer;
+
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
 
     .bottom-bar {
@@ -63,6 +84,9 @@
 </style>
 </head>
 <body>
+
+<!-- 🔵 Вот добавленная кнопка -->
+<div class="top-right-btn" id="top-btn"></div>
 
 <div class="bottom-bar">
 
@@ -126,7 +150,7 @@
         </svg>' />
     </div>
 
-    <!-- ПРОФИЛЬ (исправлено) -->
+    <!-- ПРОФИЛЬ -->
     <div class="nav-btn" id="btn-profile" onclick="openProfile()">
         <img src='data:image/svg+xml;utf8,
         <svg xmlns="http://www.w3.org/2000/svg" width="0.7cm" height="0.7cm" viewBox="0 0 64 64" fill="none">
@@ -151,11 +175,11 @@
         document.getElementById(id).classList.add("active");
     }
 
-    function openHome() { setActive("btn-home"); console.log("Главная"); }
-    function openCalendar() { setActive("btn-calendar"); console.log("Ежедневные квесты"); }
-    function openEvent() { setActive("btn-event"); console.log("Ивент"); }
-    function openInventory() { setActive("btn-inventory"); console.log("Инвентарь"); }
-    function openProfile() { setActive("btn-profile"); console.log("Профиль"); }
+    function openHome() { setActive("btn-home"); }
+    function openCalendar() { setActive("btn-calendar"); }
+    function openEvent() { setActive("btn-event"); }
+    function openInventory() { setActive("btn-inventory"); }
+    function openProfile() { setActive("btn-profile"); }
 </script>
 
 </body>
