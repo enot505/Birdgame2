@@ -17,7 +17,6 @@
         position: relative;
     }
 
-    /* Нижняя чёрная полоса */
     .bottom-bar {
         position: absolute;
         bottom: 0;
@@ -30,7 +29,6 @@
         align-items: center;
     }
 
-    /* Кнопки навигации */
     .nav-btn {
         width: 0.7cm;
         height: 0.7cm;
@@ -40,7 +38,6 @@
         cursor: pointer;
         position: relative;
 
-        /* убираем синее выделение */
         outline: none;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
         user-select: none;
@@ -53,7 +50,6 @@
         pointer-events: none;
     }
 
-    /* Подчёркивание активной кнопки */
     .nav-btn.active::after {
         content: "";
         position: absolute;
@@ -70,24 +66,59 @@
 
 <div class="bottom-bar">
 
-    <!-- Новый домик -->
+    <!-- Главная -->
     <div class="nav-btn active" onclick="openHome()">
         <img src='data:image/svg+xml;utf8,
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M3.5 11 L12 4 L20.5 11"
                   stroke="%23d9d9d9" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M6.5 11 V19.5 H17.5 V11"
                   stroke="%23d9d9d9" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M10 19.5 V15 H14 V19.5"
                   stroke="%23d9d9d9" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  stroke-linecap="round" stroke-linejoin="round"/>
         </svg>' />
     </div>
 
-    <!-- Остальные 4 кнопки -->
-    <div class="nav-btn"></div>
+    <!-- Календарь -->
+    <div class="nav-btn" onclick="openCalendar()">
+        <img src='data:image/svg+xml;utf8,
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="10" width="48" height="42" rx="4"
+                  stroke="%23d9d9d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="8" y1="20" x2="56" y2="20"
+                  stroke="%23d9d9d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="16" y="4" width="6" height="6" rx="1.2"
+                  stroke="%23d9d9d9" stroke-width="2" fill="none"/>
+            <rect x="42" y="4" width="6" height="6" rx="1.2"
+                  stroke="%23d9d9d9" stroke-width="2" fill="none"/>
+
+            <rect x="12" y="24" width="6" height="6" rx="1"
+                  stroke="%23d9d9d9" stroke-width="2" fill="none"/>
+            <path d="M15 28 L17.2 30.2 L22 25.2"
+                  stroke="%23d9d9d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="26" y1="27" x2="52" y2="27"
+                  stroke="%23d9d9d9" stroke-width="2"/>
+
+            <rect x="12" y="34" width="6" height="6" rx="1"
+                  stroke="%23d9d9d9" stroke-width="2" fill="none"/>
+            <path d="M15 38 L17.2 40.2 L22 35.2"
+                  stroke="%23d9d9d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="26" y1="37" x2="52" y2="37"
+                  stroke="%23d9d9d9" stroke-width="2"/>
+
+            <rect x="12" y="44" width="6" height="6" rx="1"
+                  stroke="%23d9d9d9" stroke-width="2" fill="none"/>
+            <path d="M15 48 L17.2 50.2 L22 45.2"
+                  stroke="%23d9d9d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="26" y1="47" x2="44" y2="47"
+                  stroke="%23d9d9d9" stroke-width="2"/>
+        </svg>' />
+    </div>
+
+    <!-- 3 пустые кнопки -->
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
@@ -100,6 +131,10 @@
 
     function openHome() {
         location.reload();
+    }
+
+    function openCalendar() {
+        console.log("Открыть календарь");
     }
 </script>
 
