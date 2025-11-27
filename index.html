@@ -37,6 +37,7 @@
         align-items: center;
         cursor: pointer;
         position: relative;
+        overflow: hidden;
 
         outline: none;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -60,13 +61,33 @@
         background: #d9d9d9;
         border-radius: 2px;
     }
+
+    /* Ripple — белый градиентный кружок */
+    .ripple {
+        position: absolute;
+        width: 0.9cm;
+        height: 0.9cm;
+        background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0));
+        border-radius: 50%;
+        transform: scale(0);
+        opacity: 0.9;
+        pointer-events: none;
+        animation: ripple-anim 0.45s ease-out forwards;
+    }
+
+    @keyframes ripple-anim {
+        to {
+            transform: scale(1.9);
+            opacity: 0;
+        }
+    }
 </style>
 </head>
 <body>
 
 <div class="bottom-bar">
 
-    <!-- НОВЫЙ ДОМ с корректной толщиной -->
+    <!-- НОВЫЙ ДОМ -->
     <div class="nav-btn active" id="btn-home" onclick="openHome()">
         <img src='data:image/svg+xml;utf8,
         <svg xmlns="http://www.w3.org/2000/svg" width="0.7cm" height="0.7cm" viewBox="0 0 64 64" fill="none">
@@ -90,7 +111,7 @@
             <rect x="16" y="4" width="6" height="6" rx="1.2"
                 stroke="%23d9d9d9" stroke-width="2"/>
             <rect x="42" y="4" width="6" height="6" rx="1.2"
-                stroke="%23d9d9d9" stroke-width="2"/>
+                stroke:%23d9d9d9; stroke-width="2"/>
 
             <rect x="12" y="24" width="6" height="6" rx="1"
                 stroke="%23d9d9d9" stroke-width="2"/>
@@ -123,7 +144,7 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    // Универсальная функция активной кнопки
+    // Активная кнопка
     function setActive(btnId) {
         document.querySelectorAll(".nav-btn").forEach(el => el.classList.remove("active"));
         document.getElementById(btnId).classList.add("active");
@@ -131,13 +152,28 @@
 
     function openHome() {
         setActive("btn-home");
-        console.log("Открыта главная");
     }
 
     function openCalendar() {
         setActive("btn-calendar");
-        console.log("Открыты ежедневные квесты");
     }
+
+    // RIPPLES — эффект маленького белого кружка
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.addEventListener("click", function(e) {
+            const rect = this.getBoundingClientRect();
+
+            const ripple = document.createElement("span");
+            ripple.classList.add("ripple");
+
+            ripple.style.left = (e.clientX - rect.left - 20) + "px";
+            ripple.style.top = (e.clientY - rect.top - 20) + "px";
+
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 450);
+        });
+    });
 </script>
 
 </body>
