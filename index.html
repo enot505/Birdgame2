@@ -77,7 +77,7 @@
         </svg>' />
     </div>
 
-    <!-- НОВЫЕ ЕЖЕДНЕВНЫЕ КВЕСТЫ (ТВОЙ SVG) -->
+    <!-- ЕЖЕДНЕВНЫЕ КВЕСТЫ -->
     <div class="nav-btn" id="btn-calendar" onclick="openCalendar()">
         <img src='data:image/svg+xml;utf8,
         <svg xmlns="http://www.w3.org/2000/svg" width="0.7cm" height="0.7cm" viewBox="0 0 64 64" fill="none">
@@ -114,7 +114,19 @@
         </svg>' />
     </div>
 
-    <!-- 2 пустые -->
+    <!-- ИНВЕНТАРЬ -->
+    <div class="nav-btn" id="btn-inventory" onclick="openInventory()">
+        <img src='data:image/svg+xml;utf8,
+        <svg xmlns="http://www.w3.org/2000/svg" width="0.7cm" height="0.7cm" viewBox="0 0 64 64" fill="none">
+            <style>.s { stroke:%23d9d9d9; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; fill:none; }</style>
+
+            <path class="s" d="M22 22 C22 16, 42 16, 42 22"/>
+            <rect class="s" x="14" y="22" width="36" height="36" rx="8"/>
+            <rect class="s" x="22" y="34" width="20" height="16" rx="6"/>
+        </svg>' />
+    </div>
+
+    <!-- ПУСТЫЕ -->
     <div class="nav-btn"></div>
     <div class="nav-btn"></div>
 
@@ -129,20 +141,10 @@
         document.getElementById(id).classList.add("active");
     }
 
-    function openHome() {
-        setActive("btn-home");
-        console.log("Главная");
-    }
-
-    function openCalendar() {
-        setActive("btn-calendar");
-        console.log("Ежедневные квесты");
-    }
-
-    function openEvent() {
-        setActive("btn-event");
-        console.log("Ивент");
-    }
+    function openHome() { setActive("btn-home"); console.log("Главная"); }
+    function openCalendar() { setActive("btn-calendar"); console.log("Ежедневные квесты"); }
+    function openEvent() { setActive("btn-event"); console.log("Ивент"); }
+    function openInventory() { setActive("btn-inventory"); console.log("Инвентарь"); }
 </script>
 
 </body>
