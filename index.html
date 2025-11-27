@@ -67,7 +67,7 @@
 <div class="bottom-bar">
 
     <!-- НОВЫЙ ДОМ с корректной толщиной -->
-    <div class="nav-btn active" onclick="openHome()">
+    <div class="nav-btn active" id="btn-home" onclick="openHome()">
         <img src='data:image/svg+xml;utf8,
         <svg xmlns="http://www.w3.org/2000/svg" width="0.7cm" height="0.7cm" viewBox="0 0 64 64" fill="none">
             <style>
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Календарь -->
-    <div class="nav-btn" onclick="openCalendar()">
+    <div class="nav-btn" id="btn-calendar" onclick="openCalendar()">
         <img src='data:image/svg+xml;utf8,
         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
             <rect x="8" y="10" width="48" height="42" rx="4"
@@ -123,12 +123,20 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
+    // Универсальная функция активной кнопки
+    function setActive(btnId) {
+        document.querySelectorAll(".nav-btn").forEach(el => el.classList.remove("active"));
+        document.getElementById(btnId).classList.add("active");
+    }
+
     function openHome() {
-        location.reload();
+        setActive("btn-home");
+        console.log("Открыта главная");
     }
 
     function openCalendar() {
-        console.log("Открыть календарь");
+        setActive("btn-calendar");
+        console.log("Открыты ежедневные квесты");
     }
 </script>
 
