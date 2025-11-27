@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom WebApp</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #001b3a; /* тёмно-синий */
+        font-family: sans-serif;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* Общий стиль для кнопок */
+    .btn {
+        position: absolute;
+        background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(200,200,200,0.7));
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    /* Кнопка закрыть */
+    #closeBtn {
+        top: 10px;
+        left: 10px;
+        width: 1.5cm;
+        height: 0.3cm;
+    }
+
+    /* Кнопка свернуть */
+    #minBtn {
+        top: 10px;
+        right: 10px;
+        width: 0.5cm;
+        height: 0.3cm;
+        transform: rotate(180deg); /* Перевёрнутая "^" */
+    }
+</style>
+</head>
+<body>
+
+<div id="closeBtn" class="btn">×</div>
+<div id="minBtn" class="btn">^</div>
+
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // раскрываем WebApp
+
+    // Закрыть WebApp
+    document.getElementById("closeBtn").onclick = () => {
+        tg.close();
+    };
+
+    // Свернуть (сделаем просто collapse)
+    document.getElementById("minBtn").onclick = () => {
+        tg.closeScanQrPopup(); // безопасное "сворачивание"
+        tg.MainButton.hide();
+        tg.HapticFeedback.impactOccurred("light");
+        tg.disableClosingConfirmation();
+        tg.BackButton.hide();
+        tg.expand(); // Поддержка разных клиентов
+        tg.requestFullscreen(); // Попытка переключения
+    };
+</script>
+
+</body>
+</html>
