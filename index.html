@@ -1,95 +1,93 @@
-<!DOCTYPE html>  
-<html lang="ru">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>WebApp</title>  
-<script src="https://telegram.org/js/telegram-web-app.js"></script>  
-  
-<style>  
-    body {  
-        margin: 0;  
-        padding: 0;  
-        background: #181818;  
-        width: 100%;  
-        height: 100vh;  
-        overflow: hidden;  
-        position: relative;  
-    }  
-  
-    /* Нижняя чёрная полоса */  
-    .bottom-bar {  
-        position: absolute;  
-        bottom: 0;  
-        left: 0;  
-        width: 100%;  
-        height: 1.5cm;  
-        background: #000;  
-        display: flex;  
-        justify-content: space-around;  
-        align-items: center;  
-    }  
-  
-    /* Кнопки навигации */  
-    .nav-btn {  
-        width: 0.7cm;  
-        height: 0.7cm;  
-        display: flex;  
-        justify-content: center;  
-        align-items: center;  
-        cursor: pointer;  
-        position: relative;
-    }  
-  
-    /* Иконка */  
-    .nav-btn img {  
-        width: 0.7cm;  
-        height: 0.7cm;  
-        object-fit: contain;  
-    }  
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebApp</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    /* Светло-серое подчёркивание активной кнопки */
-    .nav-btn.active::after {
-        content: "";
-        position: absolute;
-        bottom: -0.25cm;
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #181818;
         width: 100%;
-        height: 0.08cm;
-        background: #d9d9d9;
-        border-radius: 3px;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
     }
-</style>  
-</head>  
-<body>  
-  
-<div class="bottom-bar">  
-  
-    <!-- Домик (активный) -->  
-    <div class="nav-btn active" onclick="openHome()">  
+
+    /* Нижняя чёрная полоса */
+    .bottom-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1.5cm;
+        background: #000;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    /* Кнопки навигации */
+    .nav-btn {
+        width: 0.7cm;
+        height: 0.7cm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+
+        /* 🔥 Убираем синее выделение */
+        outline: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        user-select: none;
+    }
+
+    .nav-btn:focus {
+        outline: none;
+    }
+
+    .nav-btn img {
+        width: 0.7cm;
+        height: 0.7cm;
+        object-fit: contain;
+        pointer-events: none; /* не выделять картинку */
+    }
+</style>
+</head>
+<body>
+
+<div class="bottom-bar">
+
+    <!-- Домик -->
+    <div class="nav-btn" onclick="openHome()">
         <img src="data:image/svg+xml;utf8,
-        <svg xmlns='http://www.w3.org/2000/svg' width='0.7cm' height='0.7cm' viewBox='0 0 100 100' fill='none'>
+        <svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='none'>
             <path d='M10 45 L50 10 L90 45' stroke='%23d9d9d9' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/>
             <path d='M20 45 V90 H80 V45' stroke='%23d9d9d9' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/>
             <path d='M35 45 V25 H55 V45' stroke='%23d9d9d9' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/>
-        </svg>" />  
-    </div>  
-  
-    <!-- 4 пустых кнопки под будущие функции -->  
-    <div class="nav-btn"></div>  
-    <div class="nav-btn"></div>  
-    <div class="nav-btn"></div>  
-    <div class="nav-btn"></div>  
-  
-</div>  
-  
-<script>  
-    const tg = window.Telegram.WebApp;  
-    tg.expand();  
-  
-    function openHome() {  
-        location.reload();  
-    }  
-</script>  
-  
-</body>  
+        </svg>" />
+    </div>
+
+    <!-- 4 пустых кнопки под будущие функции -->
+    <div class="nav-btn"></div>
+    <div class="nav-btn"></div>
+    <div class="nav-btn"></div>
+    <div class="nav-btn"></div>
+
+</div>
+
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    function openHome() {
+        location.reload();
+    }
+</script>
+
+</body>
 </html>
