@@ -50,7 +50,6 @@
         transform: rotate(180deg);
     }
 
-    /* нижняя панель */
     .bottom-bar {
         position: absolute;
         bottom: 0;
@@ -86,7 +85,6 @@
         border-radius: 2px;
     }
 
-    /* Инвентарь */
     #inventory-screen {
         position: absolute;
         top: 0;
@@ -117,7 +115,6 @@
         margin-top: 20px;
     }
 
-    /* Центровое окно */
     #center-popup {
         position: absolute;
         width: 7cm;
@@ -150,7 +147,6 @@
         width: 100%;
         flex: 1 1 auto;
         overflow: auto;
-        padding-right: 4px;
     }
 
     .donate-item {
@@ -172,12 +168,6 @@
         line-height:1.1;
     }
 
-    .donate-item .price {
-        margin-top:6px;
-        font-size:12px;
-        color:#555;
-    }
-
     .donate-item button {
         margin-top:8px;
         background: #000;
@@ -191,20 +181,13 @@
 
     .donate-item button:active { transform: translateY(1px); }
 
-    @media (max-width: 420px) {
-        #center-popup { width: 90vw; height: 80vh; }
-        .donate-item h3 { font-size: 12px; }
-        .donate-item button { font-size:12px; padding:6px 8px; }
-    }
-
-    /* 🔵 Убираем синий квадрат при нажатии */
+    /* Убираем синий квадрат */
     button, .nav-btn, #arrow-icon, .top-right-btn, svg {
         outline: none !important;
         -webkit-tap-highlight-color: transparent !important;
     }
-    *:focus {
-        outline: none !important;
-    }
+    *:focus { outline: none !important; }
+
 </style>
 </head>
 <body>
@@ -218,28 +201,28 @@
             <h3>1 колибри монета</h3>
             <div class="price">49 Tg Stars</div>
             <button onclick="buyStars(1)">Купить</button>
-            <small>Авто-начисление после оплаты</small>
+            <small>Авто-начисление</small>
         </div>
 
         <div class="donate-item">
             <h3>10 колибри монет</h3>
             <div class="price">449 Tg Stars</div>
             <button onclick="buyStars(10)">Купить</button>
-            <small>Авто-начисление после оплаты</small>
+            <small>Авто-начисление</small>
         </div>
 
         <div class="donate-item">
             <h3>15 колибри монет</h3>
             <div class="price">649 Tg Stars</div>
             <button onclick="buyStars(15)">Купить</button>
-            <small>Авто-начисление после оплаты</small>
+            <small>Авто-начисление</small>
         </div>
 
         <div class="donate-item">
             <h3>20 колибри монет</h3>
             <div class="price">799 Tg Stars</div>
             <button onclick="buyStars(20)">Купить</button>
-            <small>Авто-начисление после оплаты</small>
+            <small>Авто-начисление</small>
         </div>
     </div>
 </div>
@@ -253,14 +236,14 @@
 <!-- Верхняя кнопка -->
 <div class="top-right-btn" id="top-btn">
 
-    <!-- стрелка -->
+    <!-- Стрелка -->
     <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
         <path d="M16 24 L32 40 L48 24"
               stroke="#000" stroke-width="2.5"
               stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
 
-    <!-- монета -->
+    <!-- Монета -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
         <defs>
             <radialGradient id="gold" cx="30%" cy="30%" r="80%">
@@ -270,9 +253,7 @@
                 <stop offset="100%" stop-color="#a86f00"/>
             </radialGradient>
         </defs>
-
         <circle cx="32" cy="32" r="30" fill="url(#gold)" stroke="#a86f00" stroke-width="2"/>
-        <circle cx="32" cy="32" r="24" fill="none" stroke="#e0b44d" stroke-width="1.4"/>
     </svg>
 
     <span id="coinCount" style="margin-left:4px;font-weight:bold;color:#000;">0</span>
@@ -290,14 +271,14 @@
 <script>
 const tg = window.Telegram?.WebApp || null;
 
+/* Coins */
 function getCoins(){ return parseInt(localStorage.getItem("coins")||"0"); }
 function setCoins(v){ localStorage.setItem("coins", v); }
 function updateCoinUI(){ document.getElementById("coinCount").textContent = getCoins(); }
 updateCoinUI();
 
-function hideScreens(){
-    document.getElementById("inventory-screen").style.display="none";
-}
+/* Screens */
+function hideScreens(){ document.getElementById("inventory-screen").style.display="none"; }
 function setActive(id){
     document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
     document.getElementById(id).classList.add("active");
@@ -307,7 +288,8 @@ function openCalendar(){ hideScreens(); setActive("btn-calendar"); }
 function openEvent(){ hideScreens(); setActive("btn-event"); }
 function openProfile(){ hideScreens(); setActive("btn-profile"); }
 
-let inventory = [];
+/* Inventory */
+let inventory=[];
 
 function renderInventory(){
     const empty=document.getElementById("inventory-empty");
@@ -343,6 +325,7 @@ function openInventory(){
     renderInventory();
 }
 
+/* Popup toggle */
 const arrow=document.getElementById("arrow-icon");
 const popup=document.getElementById("center-popup");
 
@@ -352,6 +335,7 @@ arrow.addEventListener("click",(e)=>{
     popup.style.display = arrow.classList.contains("arrow-rotated") ? "flex" : "none";
 });
 
+/* click outside → close */
 document.addEventListener("click",(e)=>{
     if(popup.style.display==="flex"){
         const inside = popup.contains(e.target) || arrow.contains(e.target);
@@ -362,36 +346,42 @@ document.addEventListener("click",(e)=>{
     }
 });
 
-const starProducts={ "1":49,"10":449,"15":649,"20":799 };
+/* === Stars Products === */
+const starProducts = { "1":49, "10":449, "15":649, "20":799 };
 
-function buyStars(a){
-    const price = starProducts[a];
-    if(!price) return alert("Ошибка товара");
-
-    if(tg?.openInvoice){
-        tg.openInvoice({
-            title:`${a} колибри монет`,
-            description:`Покупка ${a} монет`,
-            currency:"XTR",
-            prices:[{label:"Колибри",amount:price*100}],
-            payload:`buy_${a}`
-        },(st)=>{
-            if(st==="paid"||st==="success") completeBuy(a);
-            else alert("Платёж не подтверждён");
-        });
-        return;
+/* === Покупка Stars — рабочая версия === */
+function buyStars(amount){
+    const price = starProducts[amount];
+    if(!price){
+        return alert("Ошибка товара");
     }
 
-    if(confirm(`Купить ${a} монет за ${price}?`)){
-        completeBuy(a);
-    }
+    tg.openInvoice(
+        {
+            title: `${amount} колибри монет`,
+            description: `Покупка ${amount} монет`,
+            payload: `buy_${amount}`,
+            currency: "XTR",
+            prices: [
+                { label: `${amount} монет`, amount: price * 100 }
+            ]
+        },
+        (status)=>{
+            console.log("Invoice status:", status);
+            if(status === "paid" || status === "success"){
+                completeBuy(amount);
+            }
+        }
+    );
 }
 
-function completeBuy(a){
-    setCoins(getCoins()+a);
+/* Авто-начисление */
+function completeBuy(amount){
+    setCoins(getCoins() + amount);
     updateCoinUI();
-    alert(`Успешно начислено +${a}`);
+    alert(`Успешно! Начислено +${amount}`);
 }
+
 </script>
 
 </body>
