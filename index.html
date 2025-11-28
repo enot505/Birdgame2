@@ -34,12 +34,22 @@
         user-select: none;
         cursor: pointer;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
+        gap: 0.12cm;
     }
 
     .top-right-btn svg {
         width: 0.45cm;
         height: 0.45cm;
         pointer-events: none;
+    }
+
+    /* 🔥 Анимация стрелки */
+    #arrow-icon {
+        transition: 0.25s ease;
+        transform-origin: center;
+    }
+    .arrow-rotated {
+        transform: rotate(180deg);
     }
 
     /* Нижняя панель */
@@ -130,8 +140,20 @@
     <div id="inventory-items"></div>
 </div>
 
-<!-- 🔵 Верхняя золотая монета -->
+<!-- 🔵 Верхняя золотая монета + стрелка -->
 <div class="top-right-btn" id="top-btn">
+
+    <!-- Стрелка (вставлено) -->
+    <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg"
+         width="0.4cm" height="0.4cm" viewBox="0 0 64 64" fill="none">
+      <path d="M16 24 L32 40 L48 24"
+            stroke="#000000"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+
+    <!-- Твоя золотая монета -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <radialGradient id="gold" cx="30%" cy="30%" r="80%">
@@ -155,6 +177,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"/>
     </svg>
+
 </div>
 
 <!-- 🔵 Нижняя панель -->
@@ -295,6 +318,10 @@ function addItemFromChest(icon, name) {
     renderInventory();
 }
 
+/* 🔥 Поворот стрелки при клике на верхнюю кнопку */
+document.getElementById("top-btn").addEventListener("click", () => {
+    document.getElementById("arrow-icon").classList.toggle("arrow-rotated");
+});
 </script>
 
 </body>
