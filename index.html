@@ -131,9 +131,26 @@
         justify-content: center;
         margin-top: 20px;
     }
+
+    /* 🔲 Всплывающее окно по центру */
+    #center-popup {
+        position: absolute;
+        width: 4cm;
+        height: 4cm;
+        background: #d9d9d9;
+        border-radius: 16px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        z-index: 50;
+    }
 </style>
 </head>
 <body>
+
+<!-- Всплывающее окно -->
+<div id="center-popup"></div>
 
 <!-- 🟦 экран инвентаря -->
 <div id="inventory-screen">
@@ -319,10 +336,20 @@ function addItemFromChest(icon, name) {
     renderInventory();
 }
 
-/* 🔥 Поворот стрелки только при клике на саму стрелку */
-document.getElementById("arrow-icon").addEventListener("click", (e) => {
+/* 🔥 Поворот стрелки + открытие окна */
+const arrow = document.getElementById("arrow-icon");
+const popup = document.getElementById("center-popup");
+
+arrow.addEventListener("click", (e) => {
     e.stopPropagation();
-    document.getElementById("arrow-icon").classList.toggle("arrow-rotated");
+
+    arrow.classList.toggle("arrow-rotated");
+
+    if (arrow.classList.contains("arrow-rotated")) {
+        popup.style.display = "block";   // открываем окно
+    } else {
+        popup.style.display = "none";    // закрываем окно
+    }
 });
 </script>
 
