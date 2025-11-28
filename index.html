@@ -72,7 +72,7 @@
         width: 0.7cm;
         height: 0.7cm;
         object-fit: contain;
-        filter: brightness(0); /* чёрные иконки */
+        filter: brightness(0);
         pointer-events: none;
     }
 
@@ -87,7 +87,7 @@
         border-radius: 2px;
     }
 
-    /* 🟦 экран инвентаря */
+    /* 🟦 экран инвентаря (ЦЕНТР ИСПРАВЛЕН) */
     #inventory-screen {
         position: absolute;
         top: 0;
@@ -97,8 +97,17 @@
         background: #181818;
         color: white;
         display: none;
-        padding-top: 1cm;
-        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;   /* вертикальный центр */
+        align-items: center;        /* горизонтальный центр */
+
+        font-size: 20px;
+    }
+
+    #inventory-empty {
+        opacity: 0.7;
         font-size: 20px;
     }
 
@@ -117,12 +126,10 @@
 <!-- 🟦 экран инвентаря -->
 <div id="inventory-screen">
     <div id="inventory-empty">Нет предметов</div>
-
     <div id="inventory-items"></div>
 </div>
 
-
-<!-- 🔵 Верхняя кнопка с золотой монетой -->
+<!-- 🔵 Верхняя золотая монета -->
 <div class="top-right-btn" id="top-btn">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
@@ -149,9 +156,10 @@
     </svg>
 </div>
 
-<!-- 🔵 Нижняя навигация -->
+<!-- 🔵 Нижняя панель -->
 <div class="bottom-bar">
 
+    <!-- Дом -->
     <div class="nav-btn active" id="btn-home" onclick="openHome()">
         <img src="data:image/svg+xml;utf8,
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'>
@@ -162,6 +170,7 @@
         </svg>"/>
     </div>
 
+    <!-- Квесты -->
     <div class="nav-btn" id="btn-calendar" onclick="openCalendar()">
         <img src="data:image/svg+xml;utf8,
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'>
@@ -176,6 +185,7 @@
         </svg>"/>
     </div>
 
+    <!-- Ивент -->
     <div class="nav-btn" id="btn-event" onclick="openEvent()">
         <img src="data:image/svg+xml;utf8,
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'>
@@ -191,6 +201,7 @@
         </svg>"/>
     </div>
 
+    <!-- Инвентарь -->
     <div class="nav-btn" id="btn-inventory" onclick="openInventory()">
         <img src="data:image/svg+xml;utf8,
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'>
@@ -201,6 +212,7 @@
         </svg>"/>
     </div>
 
+    <!-- Профиль -->
     <div class="nav-btn" id="btn-profile" onclick="openProfile()">
         <img src="data:image/svg+xml;utf8,
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'>
@@ -216,13 +228,13 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-/* управление нижней панелью */
+/* управление */
 function setActive(id) {
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
-/* экраны */
+/* скрытие экранов */
 function hideScreens() {
     document.getElementById("inventory-screen").style.display = "none";
 }
@@ -232,7 +244,7 @@ function openCalendar(){ hideScreens(); setActive("btn-calendar"); }
 function openEvent(){ hideScreens(); setActive("btn-event"); }
 function openProfile(){ hideScreens(); setActive("btn-profile"); }
 
-/* =============== ИНВЕНТАРЬ =============== */
+/* инвентарь */
 let inventory = [];
 
 function renderInventory() {
@@ -280,10 +292,6 @@ function addItemFromChest(icon, name) {
     inventory.push({icon, name});
     renderInventory();
 }
-
-// тестовые предметы (убери если надо)
-// addItemFromChest("💎", "Редкий кристалл");
-// addItemFromChest("🔥", "Огненное перо");
 
 </script>
 
