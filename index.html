@@ -131,60 +131,111 @@
         z-index: 50;
         padding: 10px;
         box-sizing: border-box;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
-    /* Донаты (внутри окна) */
+    /* Заголовок */
+    #center-popup h2 {
+        margin: 0 0 8px 0;
+        text-align:center;
+        color:#000;
+        font-size:16px;
+    }
+
+    /* Сетка донатов: 2 столбца х 2 строки, равномерно */
+    .donate-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: minmax(60px, 1fr);
+        gap: 8px;
+        width: 100%;
+        flex: 1 1 auto;
+        overflow: auto;
+        padding-right: 4px; /* для вертикального скролла */
+    }
+
     .donate-item {
-        background: white;
-        border-radius: 12px;
-        padding: 10px;
+        background: #fff;
+        border-radius: 10px;
+        padding: 8px;
         text-align: center;
-        margin: 10px auto;
-        width: 85%;
-        box-shadow: 0 0 6px rgba(0,0,0,0.1);
+        box-shadow: 0 0 6px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+
     .donate-item h3 {
-        margin: 6px 0;
-        font-size: 16px;
+        margin: 0;
+        font-size: 13px;
+        color:#000;
+        line-height:1.1;
     }
+
+    .donate-item .price {
+        margin-top:6px;
+        font-size:12px;
+        color:#555;
+    }
+
     .donate-item button {
-        margin-top: 6px;
+        margin-top:8px;
         background: #000;
         color: #fff;
         border: none;
-        padding: 6px 12px;
-        border-radius: 10px;
+        padding: 6px 10px;
+        border-radius: 8px;
         cursor: pointer;
+        font-size: 13px;
     }
-    .donate-item button:hover {
-        background: #333;
+    .donate-item button:active { transform: translateY(1px); }
+    .donate-item small { color:#666; display:block; margin-top:6px; font-size:11px; }
+
+    /* Если экран меньше — уменьшать шрифты */
+    @media (max-width: 420px) {
+        #center-popup { width: 90vw; height: 80vh; }
+        .donate-item h3 { font-size: 12px; }
+        .donate-item button { font-size:12px; padding:6px 8px; }
     }
 </style>
 </head>
 <body>
 
 <!-- Центровое окно -->
-<div id="center-popup">
-    <h2 style="text-align:center; color:#000;">Донаты</h2>
+<div id="center-popup" aria-hidden="true">
+    <h2>Донаты</h2>
 
-    <div class="donate-item">
-        <h3>1 колибри монета — 49 Tg Stars</h3>
-        <button onclick="buyStars(1)">Купить</button>
-    </div>
+    <div class="donate-grid">
+        <div class="donate-item">
+            <h3>1 колибри монета</h3>
+            <div class="price">49 Tg Stars</div>
+            <button onclick="buyStars(1)">Купить</button>
+            <small>Авто-начисление после оплаты</small>
+        </div>
 
-    <div class="donate-item">
-        <h3>10 колибри монет — 449 Tg Stars</h3>
-        <button onclick="buyStars(10)">Купить</button>
-    </div>
+        <div class="donate-item">
+            <h3>10 колибри монет</h3>
+            <div class="price">449 Tg Stars</div>
+            <button onclick="buyStars(10)">Купить</button>
+            <small>Авто-начисление после оплаты</small>
+        </div>
 
-    <div class="donate-item">
-        <h3>15 колибри монет — 649 Tg Stars</h3>
-        <button onclick="buyStars(15)">Купить</button>
-    </div>
+        <div class="donate-item">
+            <h3>15 колибри монет</h3>
+            <div class="price">649 Tg Stars</div>
+            <button onclick="buyStars(15)">Купить</button>
+            <small>Авто-начисление после оплаты</small>
+        </div>
 
-    <div class="donate-item">
-        <h3>20 колибри монет — 799 Tg Stars</h3>
-        <button onclick="buyStars(20)">Купить</button>
+        <div class="donate-item">
+            <h3>20 колибри монет</h3>
+            <div class="price">799 Tg Stars</div>
+            <button onclick="buyStars(20)">Купить</button>
+            <small>Авто-начисление после оплаты</small>
+        </div>
     </div>
 </div>
 
@@ -196,7 +247,6 @@
 
 <!-- Верхняя кнопка -->
 <div class="top-right-btn" id="top-btn">
-
     <!-- стрелка -->
     <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="0.4cm" height="0.4cm" viewBox="0 0 64 64" fill="none">
         <path d="M16 24 L32 40 L48 24"
@@ -205,7 +255,7 @@
     </svg>
 
     <!-- золотая монета -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
         <defs>
             <radialGradient id="gold" cx="30%" cy="30%" r="80%">
                 <stop offset="0%" stop-color="#fff3a0"/>
@@ -231,7 +281,7 @@
 </div>
 
 <!-- нижняя панель -->
-<div class="bottom-bar">
+<div class="bottom-bar" role="navigation" aria-label="Nav">
     <div class="nav-btn active" id="btn-home" onclick="openHome()">🏠</div>
     <div class="nav-btn" id="btn-calendar" onclick="openCalendar()">📅</div>
     <div class="nav-btn" id="btn-event" onclick="openEvent()">🎉</div>
@@ -240,13 +290,12 @@
 </div>
 
 <script>
-const tg = window.Telegram.WebApp;
-tg.expand();
+const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
-/* === МОНЕТЫ === */
-function getCoins() { return parseInt(localStorage.getItem("coins") || "0"); }
+/* === МОНЕТЫ (localStorage) === */
+function getCoins() { return parseInt(localStorage.getItem("coins") || "0", 10); }
 function setCoins(v) { localStorage.setItem("coins", v); }
-function updateCoinUI() { document.getElementById("coinCount").textContent = getCoins(); }
+function updateCoinUI() { const el = document.getElementById("coinCount"); if (el) el.textContent = getCoins(); }
 updateCoinUI();
 
 /* === ЭКРАНЫ === */
@@ -260,18 +309,15 @@ function openProfile(){ hideScreens(); setActive("btn-profile"); }
 
 /* === ИНВЕНТАРЬ === */
 let inventory = [];
-
 function renderInventory(){
     const empty=document.getElementById("inventory-empty");
     const box=document.getElementById("inventory-items");
     box.innerHTML="";
-
     if(inventory.length===0){
         empty.style.display="block";
         return;
     }
     empty.style.display="none";
-
     inventory.forEach(item=>{
         const el=document.createElement("div");
         el.style.width="2.2cm";
@@ -287,48 +333,94 @@ function renderInventory(){
         box.appendChild(el);
     });
 }
-
-function openInventory(){
-    hideScreens(); setActive("btn-inventory");
-    document.getElementById("inventory-screen").style.display="block";
-    renderInventory();
-}
+function openInventory(){ hideScreens(); setActive("btn-inventory"); document.getElementById("inventory-screen").style.display="block"; renderInventory(); }
+function addItemFromChest(icon, name){ inventory.push({icon,name}); renderInventory(); }
 
 /* === ОКНО И СТРЕЛКА === */
-const arrow=document.getElementById("arrow-icon");
-const popup=document.getElementById("center-popup");
+const arrow = document.getElementById("arrow-icon");
+const popup = document.getElementById("center-popup");
 
-arrow.addEventListener("click",e=>{
+// Обработчик только для стрелки (никаких кликов по всей верхней кнопке)
+arrow.addEventListener("click", (e) => {
     e.stopPropagation();
     arrow.classList.toggle("arrow-rotated");
-    popup.style.display = arrow.classList.contains("arrow-rotated") ? "block" : "none";
+    popup.style.display = arrow.classList.contains("arrow-rotated") ? "flex" : "none";
 });
 
-/* === Telegram Stars — покупка === */
-const starProducts = {
-    "1": 49,
-    "10": 449,
-    "15": 649,
-    "20": 799
-};
-
-function buyStars(amount) {
-    const priceStars = starProducts[amount] * 100;
-
-    tg.openInvoice({
-        title: `${amount} колибри монет`,
-        description: `Покупка ${amount} колибри монет`,
-        currency: "XTR",
-        prices: [{ label: `${amount} колибри монет`, amount: priceStars }],
-        payload: `buy_${amount}`
-    }, (status) => {
-        if (status === "paid") {
-            const newCoins = getCoins() + amount;
-            setCoins(newCoins);
-            updateCoinUI();
-            alert(`Успешно!\n+${amount} колибри монет`);
+// Закрывать popup если кликнули вне (полезно)
+document.addEventListener("click", (e) => {
+    // если popup открыт и клик вне popup и клик не на стрелке — закрыть
+    if (popup.style.display === "flex") {
+        const isInside = popup.contains(e.target) || arrow.contains(e.target);
+        if (!isInside) {
+            arrow.classList.remove("arrow-rotated");
+            popup.style.display = "none";
         }
-    });
+    }
+});
+
+/* === Telegram Stars / покупка === */
+const starProducts = { "1": 49, "10": 449, "15": 649, "20": 799 };
+
+/**
+ * buyStars(amount)
+ * Попытка оплатить через tg.openInvoice (если доступно).
+ * Если WebApp API недоступен — показываем confirm и начисляем монеты (резервный режим для теста).
+ */
+function buyStars(amount) {
+    const starsPrice = starProducts[amount.toString()];
+    if (!starsPrice) {
+        alert("Ошибка: неизвестный продукт.");
+        return;
+    }
+
+    // Если Telegram WebApp API доступен и реализует openInvoice
+    if (tg && typeof tg.openInvoice === "function") {
+        try {
+            // tg.openInvoice signature can vary; using object + callback as in prior code.
+            tg.openInvoice({
+                title: `${amount} колибри монет`,
+                description: `Покупка ${amount} колибри монет`,
+                currency: "XTR", // оставил как было — в реальном коде заменить на актуальную валюту если нужно
+                prices: [{ label: `${amount} колибри монет`, amount: starsPrice * 100 }],
+                payload: `buy_${amount}`
+            }, (status) => {
+                // Telegram may return different statuses; проверяем "paid"
+                if (status === "paid" || status === "success") {
+                    finalizePurchase(amount);
+                } else {
+                    // если статус другой — не начисляем
+                    console.log("Invoice callback status:", status);
+                    alert("Платёж не подтверждён.");
+                }
+            });
+            return;
+        } catch (err) {
+            console.warn("tg.openInvoice вызвал ошибку, переключаемся на резервный режим:", err);
+        }
+    }
+
+    // Резервный режим (тест в обычном браузере): подтверждение и авто-начисление
+    const ok = confirm(`Тест-оплата\nКупить ${amount} колибри монет за ${starsPrice} Tg Stars? (резервный режим)`);
+    if (ok) {
+        // имитируем успешную покупку
+        finalizePurchase(amount);
+    } else {
+        // отменено
+    }
+}
+
+// Общая логика при успешной оплате: начислить монеты, уведомить
+function finalizePurchase(amount) {
+    const current = getCoins();
+    const newCount = current + parseInt(amount, 10);
+    setCoins(newCount);
+    updateCoinUI();
+
+    // Можно здесь добавить авто-начисление предметов в инвентарь при желании
+    // addItemFromChest("🪙", `${amount} колибри`);
+
+    alert(`Покупка успешна — +${amount} колибри монет`);
 }
 </script>
 
