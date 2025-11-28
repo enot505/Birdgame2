@@ -47,6 +47,7 @@
     #arrow-icon {
         transition: 0.25s ease;
         transform-origin: center;
+        pointer-events: auto;
     }
     .arrow-rotated {
         transform: rotate(180deg);
@@ -143,9 +144,9 @@
 <!-- 🔵 Верхняя золотая монета + стрелка -->
 <div class="top-right-btn" id="top-btn">
 
-    <!-- Стрелка (вставлено) -->
+    <!-- Стрелка -->
     <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg"
-         width="0.4cm" height="0.4cm" viewBox="0 0 64 64" fill="none">
+         width="0.4cm" height="0.4cm" viewBox="0 0 64 64" fill="none" style="pointer-events:auto;">
       <path d="M16 24 L32 40 L48 24"
             stroke="#000000"
             stroke-width="2.5"
@@ -318,8 +319,9 @@ function addItemFromChest(icon, name) {
     renderInventory();
 }
 
-/* 🔥 Поворот стрелки при клике на верхнюю кнопку */
-document.getElementById("top-btn").addEventListener("click", () => {
+/* 🔥 Поворот стрелки только при клике на саму стрелку */
+document.getElementById("arrow-icon").addEventListener("click", (e) => {
+    e.stopPropagation();
     document.getElementById("arrow-icon").classList.toggle("arrow-rotated");
 });
 </script>
