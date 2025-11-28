@@ -50,6 +50,7 @@
         transform: rotate(180deg);
     }
 
+    /* нижняя панель */
     .bottom-bar {
         position: absolute;
         bottom: 0;
@@ -72,15 +73,6 @@
         cursor: pointer;
         position: relative;
         user-select: none;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-
-    .nav-btn img {
-        width: 0.7cm;
-        height: 0.7cm;
-        object-fit: contain;
-        filter: brightness(0);
-        pointer-events: none;
     }
 
     .nav-btn.active::after {
@@ -94,6 +86,7 @@
         border-radius: 2px;
     }
 
+    /* Инвентарь */
     #inventory-screen {
         position: absolute;
         top: 0;
@@ -103,7 +96,6 @@
         background: #181818;
         color: white;
         display: none;
-        position: relative;
         overflow: hidden;
     }
 
@@ -115,7 +107,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
-        width: 100%;
     }
 
     #inventory-items {
@@ -126,7 +117,7 @@
         margin-top: 20px;
     }
 
-    /* 🔲 Окно по центру */
+    /* Центр окно 7x10см */
     #center-popup {
         position: absolute;
         width: 7cm;
@@ -142,7 +133,7 @@
         box-sizing: border-box;
     }
 
-    /* Донаты */
+    /* Донаты (внутри окна) */
     .donate-item {
         background: white;
         border-radius: 12px;
@@ -172,41 +163,48 @@
 </head>
 <body>
 
-<!-- Всплывающее окно -->
+<!-- Центровое окно -->
 <div id="center-popup">
     <h2 style="text-align:center; color:#000;">Донаты</h2>
+
     <div class="donate-item">
         <h3>1 колибри монета — 49 Tg Stars</h3>
         <button onclick="buyStars(1)">Купить</button>
     </div>
+
     <div class="donate-item">
         <h3>10 колибри монет — 449 Tg Stars</h3>
         <button onclick="buyStars(10)">Купить</button>
     </div>
+
     <div class="donate-item">
         <h3>15 колибри монет — 649 Tg Stars</h3>
         <button onclick="buyStars(15)">Купить</button>
     </div>
+
     <div class="donate-item">
         <h3>20 колибри монет — 799 Tg Stars</h3>
         <button onclick="buyStars(20)">Купить</button>
     </div>
 </div>
 
-<!-- 🟦 экран инвентаря -->
+<!-- Инвентарь -->
 <div id="inventory-screen">
     <div id="inventory-empty">Нет предметов</div>
     <div id="inventory-items"></div>
 </div>
 
-<!-- 🔵 Верхняя монета + стрелка -->
+<!-- Верхняя кнопка -->
 <div class="top-right-btn" id="top-btn">
+
     <!-- стрелка -->
     <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="0.4cm" height="0.4cm" viewBox="0 0 64 64" fill="none">
-        <path d="M16 24 L32 40 L48 24" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 24 L32 40 L48 24"
+              stroke="#000" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
 
-    <!-- монета -->
+    <!-- золотая монета -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
         <defs>
             <radialGradient id="gold" cx="30%" cy="30%" r="80%">
@@ -245,27 +243,16 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-/* === ХРАНЕНИЕ МОНЕТ === */
-function getCoins() {
-    return parseInt(localStorage.getItem("coins") || "0");
-}
-function setCoins(value) {
-    localStorage.setItem("coins", value);
-}
-function updateCoinUI() {
-    const coinLabel = document.getElementById("coinCount");
-    if (coinLabel) coinLabel.textContent = getCoins();
-}
+/* === МОНЕТЫ === */
+function getCoins() { return parseInt(localStorage.getItem("coins") || "0"); }
+function setCoins(v) { localStorage.setItem("coins", v); }
+function updateCoinUI() { document.getElementById("coinCount").textContent = getCoins(); }
 updateCoinUI();
 
-/* === УПРАВЛЕНИЕ ЭКРАНАМИ === */
-function setActive(id) {
-    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-}
-function hideScreens() {
-    document.getElementById("inventory-screen").style.display = "none";
-}
+/* === ЭКРАНЫ === */
+function hideScreens(){ document.getElementById("inventory-screen").style.display="none"; }
+function setActive(id){ document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active")); document.getElementById(id).classList.add("active"); }
+
 function openHome(){ hideScreens(); setActive("btn-home"); }
 function openCalendar(){ hideScreens(); setActive("btn-calendar"); }
 function openEvent(){ hideScreens(); setActive("btn-event"); }
@@ -274,52 +261,50 @@ function openProfile(){ hideScreens(); setActive("btn-profile"); }
 /* === ИНВЕНТАРЬ === */
 let inventory = [];
 
-function renderInventory() {
-    const emptyText = document.getElementById("inventory-empty");
-    const box = document.getElementById("inventory-items");
-    box.innerHTML = "";
+function renderInventory(){
+    const empty=document.getElementById("inventory-empty");
+    const box=document.getElementById("inventory-items");
+    box.innerHTML="";
 
-    if (inventory.length === 0) {
-        emptyText.style.display = "block";
+    if(inventory.length===0){
+        empty.style.display="block";
         return;
     }
-    emptyText.style.display = "none";
+    empty.style.display="none";
 
-    inventory.forEach(item => {
-        const el = document.createElement("div");
-        el.style.width = "2.2cm";
-        el.style.height = "2.2cm";
-        el.style.background = "#2a2a2a";
-        el.style.borderRadius = "12px";
-        el.style.display = "flex";
-        el.style.flexDirection = "column";
-        el.style.justifyContent = "center";
-        el.style.alignItems = "center";
-        el.style.color = "white";
-        el.innerHTML = `<div style='font-size:28px;'>${item.icon}</div><div style='font-size:12px;margin-top:4px;'>${item.name}</div>`;
+    inventory.forEach(item=>{
+        const el=document.createElement("div");
+        el.style.width="2.2cm";
+        el.style.height="2.2cm";
+        el.style.background="#2a2a2a";
+        el.style.borderRadius="12px";
+        el.style.display="flex";
+        el.style.flexDirection="column";
+        el.style.justifyContent="center";
+        el.style.alignItems="center";
+        el.style.color="white";
+        el.innerHTML=`<div style='font-size:28px;'>${item.icon}</div><div style='font-size:12px;margin-top:4px;'>${item.name}</div>`;
         box.appendChild(el);
     });
 }
-function openInventory() {
+
+function openInventory(){
     hideScreens(); setActive("btn-inventory");
-    document.getElementById("inventory-screen").style.display = "block";
-    renderInventory();
-}
-function addItemFromChest(icon, name) {
-    inventory.push({icon, name});
+    document.getElementById("inventory-screen").style.display="block";
     renderInventory();
 }
 
-/* === СТРЕЛКА И ОКНО === */
-const arrow = document.getElementById("arrow-icon");
-const popup = document.getElementById("center-popup");
-arrow.addEventListener("click", (e) => {
+/* === ОКНО И СТРЕЛКА === */
+const arrow=document.getElementById("arrow-icon");
+const popup=document.getElementById("center-popup");
+
+arrow.addEventListener("click",e=>{
     e.stopPropagation();
     arrow.classList.toggle("arrow-rotated");
     popup.style.display = arrow.classList.contains("arrow-rotated") ? "block" : "none";
 });
 
-/* === Telegram Stars === */
+/* === Telegram Stars — покупка === */
 const starProducts = {
     "1": 49,
     "10": 449,
@@ -328,23 +313,20 @@ const starProducts = {
 };
 
 function buyStars(amount) {
-    const priceStars = starProducts[amount.toString()] * 100;
+    const priceStars = starProducts[amount] * 100;
 
-    const invoice = {
+    tg.openInvoice({
         title: `${amount} колибри монет`,
         description: `Покупка ${amount} колибри монет`,
         currency: "XTR",
         prices: [{ label: `${amount} колибри монет`, amount: priceStars }],
         payload: `buy_${amount}`
-    };
-
-    tg.openInvoice(invoice, (status) => {
+    }, (status) => {
         if (status === "paid") {
-            let current = getCoins();
-            current += parseInt(amount);
-            setCoins(current);
+            const newCoins = getCoins() + amount;
+            setCoins(newCoins);
             updateCoinUI();
-            alert(`Успешная покупка!\n+${amount} колибри монет`);
+            alert(`Успешно!\n+${amount} колибри монет`);
         }
     });
 }
