@@ -336,11 +336,15 @@ document.addEventListener("click",(e)=>{
     }
 });
 
-// ---------- БЕЗ ЗВЁЗД — ПРОСТАЯ ПОКУПКА ----------
+// ---------- БЕЗ ВЫДАЧИ МОНЕТ — ПЕРЕПРАВКА В БОТА ----------
 function buyCoins(amount){
-    setCoins(getCoins() + amount);
-    updateCoinUI();
-    alert("Вы получили +" + amount + " колибри монет!");
+    if(!tg){
+        alert("Откройте через Telegram WebApp");
+        return;
+    }
+
+    tg.openTelegramLink("https://t.me/YourBotName?start=buy" + amount);
+    tg.close();
 }
 </script>
 
