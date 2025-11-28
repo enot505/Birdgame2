@@ -201,25 +201,25 @@
         <div class="donate-item">
             <h3>1 колибри монета</h3>
             <div class="price">49 ⭐</div>
-            <button onclick="buyStars(1)">Купить</button>
+            <button onclick="buyCoins(1)">Купить</button>
         </div>
 
         <div class="donate-item">
             <h3>10 колибри монет</h3>
             <div class="price">449 ⭐</div>
-            <button onclick="buyStars(10)">Купить</button>
+            <button onclick="buyCoins(10)">Купить</button>
         </div>
 
         <div class="donate-item">
             <h3>15 колибри монет</h3>
             <div class="price">649 ⭐</div>
-            <button onclick="buyStars(15)">Купить</button>
+            <button onclick="buyCoins(15)">Купить</button>
         </div>
 
         <div class="donate-item">
             <h3>20 колибри монет</h3>
             <div class="price">799 ⭐</div>
-            <button onclick="buyStars(20)">Купить</button>
+            <button onclick="buyCoins(20)">Купить</button>
         </div>
     </div>
 </div>
@@ -336,40 +336,11 @@ document.addEventListener("click",(e)=>{
     }
 });
 
-// ---------- STAR PAYMENT ----------
-const starProducts={ "1":49,"10":449,"15":649,"20":799 };
-
-function buyStars(a){
-    const price = starProducts[a];
-    if(!price) return alert("Ошибка товара");
-
-    if(tg?.openStarPayment){
-        tg.openStarPayment({
-            currency:"XTR",
-            amount: price,
-            description: `Покупка ${a} колибри монет`,
-            payload: `buy_${a}`
-        }, (status)=>{
-            console.log("Payment:", status);
-
-            if(status==="paid" || status==="success"){
-                completeBuy(a);
-            }
-        });
-
-        return;
-    }
-
-    // fallback
-    if(confirm(`Купить ${a} монет за ${price}?`)){
-        completeBuy(a);
-    }
-}
-
-function completeBuy(a){
-    setCoins(getCoins()+a);
+// ---------- БЕЗ ЗВЁЗД — ПРОСТАЯ ПОКУПКА ----------
+function buyCoins(amount){
+    setCoins(getCoins() + amount);
     updateCoinUI();
-    alert(`Начислено +${a} монет`);
+    alert("Вы получили +" + amount + " колибри монет!");
 }
 </script>
 
