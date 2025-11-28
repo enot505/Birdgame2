@@ -87,7 +87,7 @@
         border-radius: 2px;
     }
 
-    /* 🟦 экран инвентаря (ЦЕНТР ИСПРАВЛЕН) */
+    /* 🟦 Экран инвентаря */
     #inventory-screen {
         position: absolute;
         top: 0;
@@ -100,15 +100,17 @@
 
         display: flex;
         flex-direction: column;
-        justify-content: center;   /* вертикальный центр */
-        align-items: center;        /* горизонтальный центр */
+        justify-content: center;   /* центр по вертикали */
+        align-items: center;        /* центр по горизонтали */
 
         font-size: 20px;
+        text-align: center;
     }
 
     #inventory-empty {
         opacity: 0.7;
         font-size: 20px;
+        text-align: center; /* важный фикс */
     }
 
     #inventory-items {
@@ -197,7 +199,7 @@
             <line class='s' x1='12' y1='26' x2='12' y2='50'/>
             <line class='s' x1='52' y1='26' x2='52' y2='50'/>
             <line class='s' x1='12' y1='50' x2='52' y2='50'/>
-            <path class='s' d='M28 50 V36 H36 V50'/>
+            <path class='s' d='М28 50 V36 H36 V50'/>
         </svg>"/>
     </div>
 
@@ -228,7 +230,7 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-/* управление */
+/* управление вкладками */
 function setActive(id) {
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     document.getElementById(id).classList.add("active");
@@ -244,7 +246,7 @@ function openCalendar(){ hideScreens(); setActive("btn-calendar"); }
 function openEvent(){ hideScreens(); setActive("btn-event"); }
 function openProfile(){ hideScreens(); setActive("btn-profile"); }
 
-/* инвентарь */
+/* --- ИНВЕНТАРЬ --- */
 let inventory = [];
 
 function renderInventory() {
@@ -288,6 +290,7 @@ function openInventory() {
     renderInventory();
 }
 
+/* Добавление предметов из сундука */
 function addItemFromChest(icon, name) {
     inventory.push({icon, name});
     renderInventory();
